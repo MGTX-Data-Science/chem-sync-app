@@ -23,7 +23,7 @@ def app_definition_id() -> str:
     # You could choose to simply leave it in code like `return "appdef_SpzX0d5oDA"`.
     app_def_id = os.environ.get("APP_DEFINITION_ID")
     assert app_def_id is not None, "Missing APP_DEFINITION_ID from environment"
-    return app_def_id
+    return 'appdef_la9X4jhuE4'
 
 
 def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
@@ -32,7 +32,7 @@ def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
 
 @cache
 def _auth_method() -> ClientCredentialsOAuth2:
-    client_id = os.environ.get("CLIENT_ID")
+    client_id = 'la9WwqLRyq'
     assert client_id is not None, "Missing CLIENT_ID from environment"
     client_secret = _client_secret_from_file()
     return ClientCredentialsOAuth2(client_id, client_secret)
