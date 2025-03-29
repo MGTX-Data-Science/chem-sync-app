@@ -10,8 +10,8 @@ services:
     environment:
       - FLASK_DEBUG=1
       - BENCHLING_APP_LOG_LEVEL=DEBUG
-      - CLIENT_ID
-      - APP_DEFINITION_ID
+      - CLIENT_ID=la9WwqLRyq
+      - APP_DEFINITION_ID=appdef_la9X4jhuE4
       - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
     secrets:
       - app_client_secret
