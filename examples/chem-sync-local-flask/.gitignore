@@ -6,6 +6,11 @@
 **/.env
 .DS_Store
 **/.client_secret
+**/.client_id
+**/.app_definition_id
+**/.ngrok_auth_token
+**/.ngrok.yml
 **/.pytest_cache
 .mypy_cache
 .ruff_cache
+.ngrok.yml

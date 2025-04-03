@@ -10,26 +10,39 @@ services:
     environment:
       - FLASK_DEBUG=1
       - BENCHLING_APP_LOG_LEVEL=DEBUG
-      - CLIENT_ID=la9WwqLRyq
-      - APP_DEFINITION_ID=appdef_la9X4jhuE4
+      - CLIENT_ID_FILE=/run/secrets/client_id
+      - APP_DEFINITION_ID_FILE=/run/secrets/app_definition_id
       - CLIENT_SECRET_FILE=/run/secrets/app_client_secret
     secrets:
       - app_client_secret
+      - client_id
+      - app_definition_id
     networks:
       - ngrok
 
   ngrok:
     image: ngrok/ngrok:latest
-    command: ["http", "benchling-app:5000"]
-    environment:
-      - NGROK_AUTHTOKEN=2tDg9sKURKS8yesXCsb0BexezWP_7y6WYYhGbng9htFmAxndv
+    command: ["start", "--config", "/etc/ngrok/ngrok.yml", "benchling-app"]  # Use the config file directly
+    volumes:
+      - ./ngrok.yml:/etc/ngrok/ngrok.yml  # Mount the ngrok config file
     networks:
       - ngrok
+
+volumes:
+  ngrok-config:
+    external: false
 
 secrets:
   app_client_secret:
     file: .client_secret
+  client_id:
+    file: .client_id
+  app_definition_id:
+    file: .app_definition_id
+  ngrok_auth_token:
+    file: .ngrok_auth_token
 
 networks:
   ngrok:
     driver: bridge
+

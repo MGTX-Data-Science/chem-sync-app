@@ -21,9 +21,9 @@ def app_definition_id() -> str:
     # the App's code to avoid reusing elements of the webhook's data payload as part of its verification.
     # For ease of setup, we retrieve it from an environment variable.
     # You could choose to simply leave it in code like `return "appdef_SpzX0d5oDA"`.
-    app_def_id = os.environ.get("APP_DEFINITION_ID")
+    app_def_id = 'appdef_la9X4jhuE4'
     assert app_def_id is not None, "Missing APP_DEFINITION_ID from environment"
-    return 'appdef_la9X4jhuE4'
+    return app_def_id
 
 
 def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:

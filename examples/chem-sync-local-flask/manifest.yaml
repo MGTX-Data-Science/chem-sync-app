@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.1
+  version: 0.1.6
 features:
   - name: Sync Step
     id: sync_step
@@ -17,13 +17,13 @@ subscriptions:
   - type: v2.canvas.userInteracted
   - type: v2-beta.canvas.created
 configuration:
-  - name: Sync Folder
+  - name: molecules
     type: folder
     description: The folder where synced chemical entities will be stored.
     requiredConfig: true
-  - name: Molecule Schema
+  - name: Molecules
     type: entity_schema
-    subtype: molecule
+    subtype: custom_entity
     description: A chemical schema for molecules synced from PubChem.
     requiredConfig: true
     fieldDefinitions:
@@ -32,4 +32,10 @@ configuration:
         requiredConfig: true
       - name: MonoIsotopic
         type: float
+        requiredConfig: true
+      - name: Cas Number
+        type: text
+        requiredConfig: true
+      - name : Molecule Name   
+        type: text
         requiredConfig: true

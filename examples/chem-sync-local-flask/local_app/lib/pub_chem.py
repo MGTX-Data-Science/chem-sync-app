@@ -40,21 +40,33 @@ def search(query: str, limit: int = 1) -> list[dict[str, Any]]:
 
 
 # Example: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/2244/JSON
-def get_by_cid(cid: str) -> dict[str, Any]:
+import re
+from typing import Any, Dict
+
+def get_by_cid(cid: str) -> Dict[str, Any]:
     result_json = _pubchem_get(f"cid/{cid}/JSON")
     synonyms_json = _pubchem_get(f"cid/{cid}/synonyms/JSON")
+
     compound_json = result_json["PC_Compounds"][0]
     name = synonyms_json["InformationList"]["Information"][0]["Synonym"][0]
     smiles = _get_compound_string_prop(compound_json, label="SMILES", name="Canonical")
     mono_isotopic_weight = _get_compound_string_prop(compound_json, label="Weight", name="MonoIsotopic")
     molecular_weight = _get_compound_string_prop(compound_json, label="Molecular Weight")
+
+    # Look for synonyms with exactly two hyphens
+    cas_number = next((syn for syn in synonyms_json["InformationList"]["Information"][0]["Synonym"]
+                       if syn.count('-') == 2), None)
+
     return {
         "cid": cid,
         "name": name,
         "smiles": smiles,
         "molecularWeight": molecular_weight,
         "monoisotopic": mono_isotopic_weight,
+        "casNumber": cas_number,  # Add CAS number
     }
+
+
 
 
 def image_url(cid: str) -> str:
