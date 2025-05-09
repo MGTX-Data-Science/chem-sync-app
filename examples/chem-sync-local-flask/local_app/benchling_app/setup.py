@@ -39,7 +39,8 @@ def _auth_method() -> ClientCredentialsOAuth2:
 
 
 def _client_secret_from_file() -> str:
-    file_path = os.getenv("CLIENT_SECRET_ID")
-    assert file_path is not None, "Missing CLIENT_SECRET_FILE from environment"
-    with Path(file_path).open() as f:
-        return f.read()
+    client_id = os.getenv("CLIENT_SECRET_ID")
+    return client_id
+    # assert file_path is not None, "Missing CLIENT_SECRET_FILE from environment"
+    # with Path(file_path).open() as f:
+    #     return f.read()
