@@ -53,17 +53,13 @@ def get_by_cid(cid: str) -> Dict[str, Any]:
     mono_isotopic_weight = _get_compound_string_prop(compound_json, label="Weight", name="MonoIsotopic")
     molecular_weight = _get_compound_string_prop(compound_json, label="Molecular Weight")
 
-    # Look for synonyms with exactly two hyphens
-    cas_number = next((syn for syn in synonyms_json["InformationList"]["Information"][0]["Synonym"]
-                       if syn.count('-') == 2), None)
-
+    
     return {
         "cid": cid,
         "name": name,
         "smiles": smiles,
         "molecularWeight": molecular_weight,
-        "monoisotopic": mono_isotopic_weight,
-        "casNumber": cas_number,  # Add CAS number
+        "monoisotopic": mono_isotopic_weight
     }
 
 

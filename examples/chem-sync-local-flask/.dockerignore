@@ -1,0 +1,21 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore local configuration files
+.env
+*.log
+
+# Ignore version control directories
+.git/
+.gitignore
+.app_definition_id
+.client_secret
+.client_id
+.ngrok_auth_token
+.ngrok.yml

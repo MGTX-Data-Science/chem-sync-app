@@ -7,6 +7,8 @@ from benchling_sdk.apps.framework import App
 from benchling_sdk.apps.status.errors import AppUserFacingError
 from benchling_sdk.models import AppCanvasUpdate, Molecule
 from benchling_sdk.models.webhooks.v0 import CanvasInteractionWebhookV2
+from benchling_sdk.models import CustomEntity
+from benchling_sdk.errors import BenchlingError
 
 from local_app.benchling_app.molecules import create_molecule
 from local_app.benchling_app.views.canvas_initialize import input_blocks
@@ -51,8 +53,12 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
         with app.create_session_context("Create Molecules", timeout_seconds=20) as session:
             session.attach_canvas(canvas_id)
             canvas_builder = _canvas_builder_from_canvas_id(app, canvas_id)
-            molecule = _create_molecule_from_canvas(app, canvas_builder)
-            render_completed_canvas(molecule, canvas_id, canvas_builder, session)
+
+            # Unpack both the molecule and whether it was already registered
+            molecule, already_registered = _create_molecule_from_canvas(app, canvas_builder)
+
+            render_completed_canvas(molecule, canvas_id, canvas_builder, session, already_registered=already_registered)
+
     else:
         # Re-enable the Canvas, or it will stay disabled and the user will be stuck
         app.benchling.apps.update_canvas(canvas_id, AppCanvasUpdate(enabled=True))
@@ -61,7 +67,6 @@ def route_interaction_webhook(app: App, canvas_interaction: CanvasInteractionWeb
         raise UnsupportedButtonError(
             f"Whoops, the developer forgot to handle the button {canvas_interaction.button_id}",
         )
-
 
 def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Molecule:
     # JSON can be almost any type, cast only needed if you care about type safety checks like MyPy
@@ -72,6 +77,7 @@ def _create_molecule_from_canvas(app: App, canvas_builder: CanvasBuilder) -> Mol
     chemical_cid = canvas_data[CID_KEY]
     chemical = get_by_cid(chemical_cid)
     return create_molecule(app, chemical)
+
 
 
 def _canvas_builder_from_canvas_id(app: App, canvas_id: str) -> CanvasBuilder:

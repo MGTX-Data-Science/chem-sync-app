@@ -21,7 +21,7 @@ def app_definition_id() -> str:
     # the App's code to avoid reusing elements of the webhook's data payload as part of its verification.
     # For ease of setup, we retrieve it from an environment variable.
     # You could choose to simply leave it in code like `return "appdef_SpzX0d5oDA"`.
-    app_def_id = 'appdef_la9X4jhuE4'
+    app_def_id = os.getenv('APP_DEFINITION_ID')
     assert app_def_id is not None, "Missing APP_DEFINITION_ID from environment"
     return app_def_id
 
@@ -32,14 +32,14 @@ def _benchling_from_webhook(webhook: WebhookEnvelopeV0) -> Benchling:
 
 @cache
 def _auth_method() -> ClientCredentialsOAuth2:
-    client_id = 'la9WwqLRyq'
+    client_id = os.getenv('CLIENT_ID')
     assert client_id is not None, "Missing CLIENT_ID from environment"
     client_secret = _client_secret_from_file()
     return ClientCredentialsOAuth2(client_id, client_secret)
 
 
 def _client_secret_from_file() -> str:
-    file_path = os.environ.get("CLIENT_SECRET_FILE")
+    file_path = os.getenv("CLIENT_SECRET_ID")
     assert file_path is not None, "Missing CLIENT_SECRET_FILE from environment"
     with Path(file_path).open() as f:
         return f.read()
