@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.7
+  version: 0.1.9
 features:
   - name: Sync Step
     id: sync_step
@@ -16,6 +16,7 @@ subscriptions:
   - type: v2.canvas.initialized
   - type: v2.canvas.userInteracted
   - type: v2-beta.canvas.created
+
 configuration:
   - name: molecules
     type: folder
