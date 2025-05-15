@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.6
+  version: 0.1.15
 features:
   - name: Sync Step
     id: sync_step
@@ -33,7 +33,7 @@ configuration:
       - name: MonoIsotopic
         type: float
         requiredConfig: true
-      - name: Cas Number
+      - name: Cid Number
         type: text
         requiredConfig: true
       - name : Molecule Name   
