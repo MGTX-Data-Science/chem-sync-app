@@ -2,7 +2,7 @@ manifestVersion: 1
 
 info:
   name: Sample Sync App
-  version: 0.1.15
+  version: 0.1.16
 features:
   - name: Sync Step
     id: sync_step
@@ -16,6 +16,7 @@ subscriptions:
   - type: v2.canvas.initialized
   - type: v2.canvas.userInteracted
   - type: v2-beta.canvas.created
+
 configuration:
   - name: molecules
     type: folder
@@ -33,7 +34,7 @@ configuration:
       - name: MonoIsotopic
         type: float
         requiredConfig: true
-      - name: Cid Number
+      - name: CID Number
         type: text
         requiredConfig: true
       - name : Molecule Name   
